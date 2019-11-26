@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Assignment1</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <script>
+           
+            /************************************************
+            Write a piece of code to demonstrate JS Type Coercion.
+            *********************************************** */
+            var a = 10 + "Hello";
+            console.log(a);
+
+            /************************************************
+             Write a piece of code to demonstrate JS Hoisting.
+             *********************************************** */
+//          
+//          Variable Hoisting
+            str = 10;
+            console.log(str);
+            var str;  // variable declaration get hoisted at top of the code
+//          
+//          Function Hoisting
+//              eg.1
+            print();
+            function print()
+            {
+                console.log("Hello world");
+            }
+//              eg2. 
+            print("world");
+            function print(str)
+            {
+                console.log("Hello " + str);
+            }
+
+        </script>
+    </body>
+</html>

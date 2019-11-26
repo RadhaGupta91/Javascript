@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Assignment1</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <script>
+            
+            /*Create an array of movie objects. Each movie should have a title,
+            rating, and hasWatched properties. Iterate through the array and
+            print out something that looks like:
+            You have watched "In Bruges" - 5 stars
+            You have not seen "Frozen" - 4.5 stars
+            You have seen "Mad Max Fury Road" - 5 stars
+            You have not seen "Les Miserables" - 3.5 stars
+            USE YOUR OWN MOVIES!
+            */
+           
+                var movieDB =    [
+                                     {'title':"Avengers","rating":"5stars","hasWatched":"watched"},
+                                     {'title':"Aquaman","rating":"5stars","hasWatched":"not seen"},
+                                     {'title':"Solo: A Star Wars Story","rating":"3stars","hasWatched":"seen"},
+                                     {'title':"Ironman","rating":"2stars","hasWatched":"not seen"}
+                ];
+                
+                // 1st way
+                for (var i = 0; i < movieDB.length; i++) {
+                    console.log("You have "+movieDB[i]["hasWatched"]+" "+movieDB[i]["title"]+" "+movieDB[i]["rating"]);
+                }
+
+                // 2nd way
+                movieDB.forEach((item, index) => console.log("You have "+item["hasWatched"]+" "+item["title"]+" "+item["rating"]));
+                
+                //3rd way
+                movieDB.forEach(function(item){
+                    console.log("You have "+item["hasWatched"]+" "+item["title"]+" "+item["rating"])
+                });
+                /*Write a function prettyPrint() that accepts an object as an
+                argument and prints out a "pretty" string version of the object.
+                prettyPrint({name: "Rusty", species: "dog", breed: "mutt"});
+                //the above code should print the following 3 lines:
+                //name: Rusty
+                //species: dog
+                //breed: mutt*/
+    
+                function prettyPrint(dogInfo){
+                    this.name = dogInfo.name;
+                    this.species = dogInfo.species;
+                    this.breed = dogInfo.breed;
+                    
+                    //print
+                    console.log("name:"+this.name);
+                    console.log("species:"+this.species);
+                    console.log("breed:"+this.breed);
+                }
+                prettyPrint({name: "Rusty", species: "dog", breed: "mutt"});
+                
+                /*Write a function charCount() that takes a string argument and
+                returns an object listing the character frequency of the string.
+                charCount("hello");
+                // {
+                // "h": 1,
+                // "e": 1,
+                // "l": 2,
+                // "o": 1
+                // }
+                //It should ignore capitalization
+                charCount("AaBbC")
+                // {
+                // "a": 2,
+                // "b": 2,
+                // "c": 1,
+                // } */   
+    
+                function charCount(str){
+                    var count = str.length;
+                    var obj= {};
+                    for(i=0;i<str.length;i++)
+                    {
+                        key = str[i].toLowerCase();
+                        obj[key] = (key in obj)?++obj[key]:1;
+                    }
+                    return obj;
+                }
+
+                console.log(charCount("hello"));
+                console.log(charCount("AaBbC"));
+                
+                /*BONUS: mostFreqChar()
+                Write a function mostFreqChar() that takes a string argument and
+                returns the character that appears most often in the string
+                charCount("HELLO"); //=> "L"
+                charCount("abbbcc"); //=>"b"
+                charCount("www.dog.com"); //=> "w"
+                **/
+               
+                function charCount(str){
+                     var count = str.length;
+                     var obj= {};
+                     for(i=0;i<str.length;i++)
+                     {
+                         key = str[i].toLowerCase();
+                         obj[key] = (key in obj)?++obj[key]:1;
+                     }
+                     return obj;
+                 }
+                function mostFreqChar(arg){
+                    var obj = charCount(arg);
+                     max= Object.keys(obj).reduce(function(a, b){ return obj[a] > obj[b] ? a : b });
+                     console.log(max);
+                }
+                mostFreqChar("HELLO"); //=> "L"
+                mostFreqChar("abbbcc"); //=> "b"
+                mostFreqChar("www.dog.com"); //=> "w"
+
+        </script>
+    </body>
+</html>

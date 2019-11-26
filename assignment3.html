@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Assignment3</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <script>
+
+            /************************************************
+             Mark and john ar trying to compare their BMI(Body Mass Index),which is calculate using 
+             the formula BMI = mas/(height*height).
+             (mass in kgs and height in meter)
+             1.Store  Mark's and John's mass and heigh in variables.
+             2.Calculate both their BMIs
+             3.Create a boolen varibale containing information about whether Mark has higher BMI than John.
+             4. Print the string to the console containing the variable from step3.(Somehting like
+             "Is Mark's BMI higher than Jhon's? true").
+             */
+            function calculateAge(height, mass) {
+
+                return(mass / (height * height));
+            }
+            var mark = calculateAge(1.524, 60);
+            var john = calculateAge(1.8288, 80);
+
+            console.log("Mark's BMI?" + mark);
+            console.log("Mark's BMI?" + john);
+            console.log("Is Mark's BMI higher than Jhon's?" + ((mark > john) ? true : false));
+            /************************************************
+             John and mike  both play bastketball in different teams. IN the latest 3 games, John's team scroed 89,120,103 points
+             while mike's team scored 116,94 and 123 points.
+             1. Calculate  the average scroe for each team
+             2. Decide which team wins in avarage(highest average score), and print the winner to the console.
+             also,include the average score in the output
+             3. Then change the scores to show different winners.Don't forget to take into account there might be a
+             draw(the same average score)
+             4.EXTRA:Mary aslo plays a basketball,and her team scoreed 97,134 and 105 points. Like before,log the average 
+             winner to  the console. HINT: you will need the ** operator to take the decision. 
+             
+             **/
+            var games =
+                    {
+                        basketball: 0, // Default value of properties
+                        football: 0, // Default value of properties
+                        tennis: 0, // Default value of properties
+                        average: function (gameCount) {
+
+                            return ((this.basketball + this.football + this.tennis) / gameCount);
+                        },
+                    };
+
+            //create obj corresponding to person
+            var mike = Object.create(games);
+            var john = Object.create(games);
+            mike.basketball = 89;
+            mike.football = 120;
+            mike.tennis = 103;
+
+            //To check if both teams has equal scores
+//            mike.basketball = 116;
+//            mike.football = 94;
+//            mike.tennis = 123;
+
+            john.basketball = 116;
+            john.football = 94;
+            john.tennis = 123;
+
+            //Update scroes
+            john.averageScore = john.average(3);
+            mike.averageScore = mike.average(3);
+            var team = (john.averageScore == mike.averageScore ? "Both teams has equal score" : ((john.averageScore > mike.averageScore) ? "John's team" : "Mike's Team"));
+            var score = ((john.averageScore > mike.averageScore) ? john.averageScore : mike.averageScore);
+            console.log("Average of john's games: " + john.average(3));
+            console.log("Average of mike's games: " + mike.average(3));
+
+            console.log("Winner of the games is: " + team);
+            console.log("Average score is : " + score);
+
+            //Mary's score
+            var mary = Object.create(games);
+            mary.basketball = 97;
+            mary.football = 134;
+            mary.tennis = 105;
+            mary.averageScore = mary.average(3);
+            console.log("Average of mary's games: " + mary.average(3));
+
+            if (mary.averageScore > john.averageScore && mary.averageScore > mike.averageScore)
+            {
+                person = "Mary";
+                score = mary.averageScore;
+
+            }
+            else if (mike.averageScore > john.averageScore)
+            {
+                person = "Mike";
+                score = mike.averageScore;
+            } else {
+                person = "John";
+                score = john.averageScore;
+            }
+            console.log("Winner of the games is: " + person + "'s team");
+            console.log("Average score is : " + score);
+
+            /************************************************
+             3. John and his family went on a holiday and went to 3 different restaurants.
+             The bills were $128, $48 and $268.
+             To tip the waiter a fair amount, John created a simple tip calculator (as a function).
+             He likes to tip 20% of the bill when the bill is less than $50,$15% when the bill is between
+             $50 and $200, and 10% if the bill is more than $200.
+             In the end, John would like to have 2 arrays:
+             1) Containing all three tips (one for each bill)
+             2) Containing all three final paid amounts(bills + tip).
+             
+             (Note: To calculate 20% of a value, simply multiply if with 20/100 = 0.2)
+             *********************************************** */
+
+            var bill = [128, 48, 268];
+            //Generic function to calculate tip and total amount
+            function arrayCalc(arr, fn) {
+                var arrRes = [];
+                for (var i = 0; i < arr.length; i++)
+                {
+                    if (fn == calculateTip)
+                    {
+                        arrRes.push({
+                            amount: arr[i],
+                            tip: fn(arr[i])
+                        });
+                    } else {
+                        arrRes.push({
+                            amount: arr[i]['amount'],
+                            tip: arr[i]['tip'],
+                            totalAmount: fn(arr[i])
+                        });
+                    }
+                }
+                return arrRes;
+            }
+
+            //calculate tip
+            function calculateTip(el) {
+                switch (el)
+                {
+                    case (el < 50):
+                        return (el * 20) / 100;
+                    case (el > 50 && el < 200):
+                        return (el * 15) / 100;
+                    default:
+                        return (el * 10) / 100;
+                }
+            }
+
+            //calculate total amount
+            function calculateAmount(el) {
+                return el['amount'] + el['tip'];
+            }
+
+            //Print information
+            function print(arr) {
+                for (var i = 0; i < arr.length; i++)
+                {
+                    console.log("TotalBill : " + arr[i]['amount'] + " Tip : " + arr[i]['amount'] + " TotalAmount : " + arr[i]['totalAmount']);
+                }
+            }
+
+            var AmountAndTip = arrayCalc(bill, calculateTip);
+            var totalBill = arrayCalc(AmountAndTip, calculateAmount);
+            print(totalBill);
+
+            /************************************************
+             4.Let us remember the first coding challange where mark and john compared their BMIs.
+             Let's now implement the same functionality with objects and methods.
+             
+             1. For each of them,create an object with properties for their full name, mass, and height
+             2. Then, add a method to each object to calculate the BMI.Save the BMI to object 
+             and also return it from method
+             3. In the end, log to console who has the highest BMI, together with the full name and the
+             respective BMI. Don't forget they might have the same BMI.
+             
+             Remember: BMI = mass / (height*height). (mass in kg and height in meter).
+             *********************************************** */
+
+            var person = {
+                //calculate BMI
+                calculateBMI: function () {
+                    this.bmi = ((this.mass) / (this.height * this.height));
+                    return this.bmi;
+                }
+            };
+
+            var mike = Object.create(person);
+            var john = Object.create(person);
+            //Mike's info
+            mike.name = "MIKE";
+            mike.height = 1.524;
+            mike.mass = 60;
+
+            //John's info
+            john.height = 1.8288;
+            john.mass = 80;
+            john.name = "JOHN";
+
+            //Call methods to calculate BMI
+            mike.calculateBMI();
+            john.calculateBMI();
+
+            //Print information
+            console.log("Mark's BMI? " + mike.bmi);
+            console.log("John's BMI? " + john.bmi);
+            var bmiComparison = ((mike.bmi > john.bmi) ? true : false);
+            console.log("Is Mark's BMI higher than Jhon's? " + bmiComparison);
+            
+            /*
+            make shopping cart which can add item, remove it and make payment.
+            make sure there should be use of iife, closures , objects to run it.
+            */
+           
+            var products =[
+                           {"type":"Shoes","color" :"Blue", "price": "2000"},
+                           {"type" : "Shirt","color" : "Gray", "price" : "2500"},
+                           {"type" : "GiftBox","color" : "Red", "price" : "1500"}
+                        ];
+            products.forEach((item,index) => console.log((index+1)+" Product :"+item["type"]+" Color :"+item["type"]+" Price :"+item["price"]));
+            
+            var Customer = {
+                "list" :[
+                            [1, 9]
+                        ],
+                //calculate totalAmount
+                totalAmount: function () {
+                    var totalAmount = 0;
+                     this.list.forEach(function(item,index){
+//                                                    quantity* price
+                                 totalAmount += products[index][1]*products[index]["price"];
+                                 console.log("Total Amount :"+totalAmount);
+                            });
+                            return totalAmount;
+                },
+                traverse: function () {
+                    
+                    this.list.forEach(function(item,index){
+                                
+                                console.log((index+1)+" Product :"+products[index]["type"]+" Quantity :"+item[1]);
+                                
+                            });
+                            console.log("Total Amount :"+ this.totalAmount());
+            
+                },
+                modify: function(action,productno,quantity)
+                {
+                    console.log(this.list);
+                    switch(action)
+                    {
+                        case "add":
+                            this.list[productno][1]++;
+                            break;
+                        case "delete":
+                            this.list[productno][1]--;
+                            break;
+
+                    }
+                    console.log("Your Cart is :");
+                    this.traverse();
+                }
+            };
+            
+            var mike = Object.create(Customer);
+            //
+            mike.modify("add",0,1);
+//            mike.traverse();
+        </script>
+    </body>
+</html>

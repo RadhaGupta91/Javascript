@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Assignment1</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <script>
+           
+            /************************************************
+            Elements within an array are contained within:
+            ● ()
+            ● []
+            ● {}
+            ● <>
+            Ans. b
+
+            /************************************************
+             Elements within an array are separated with:
+            ● .
+            ● ,
+            ● :
+            ● ;
+    `       Ans. b
+
+             *********************************************** */
+//          
+            /************************************************
+            Elements within an array must all be of the same data type.
+            ● True  
+            ● False
+            Ans. b
+             *********************************************** */
+//          
+            /************************************************
+            Given the array var myArray = [1,2,3,4,5], what would be the value
+            returned from calling the length method on myArray?
+            ● 1
+            ● 3
+            ● 5
+            ● 7
+            Ans. c
+             *********************************************** */
+            /************************************************
+            Given the array var myNums = [3,5,1], what would be the result of calling
+            the sort method on myNums?
+            ● It returns the sorted array [1,3,5], but does not modify myNums
+            ● It returns nothing and sorts the myNums array to [1,3,5]
+            ● It returns the sorted array [5,3,1], but does not modify myNums
+            ● It returns nothing and sorts the myNums array to [5,3,1]
+            Ans. b
+             *********************************************** */
+            /************************************************
+            Which method is used to add another element to an array?
+            ● Pop
+            ● Push
+            ● Add
+            ● concatenate
+            Ans. b
+             *********************************************** */
+            /************************************************
+            When using the push method on an array to add an element, where within the
+            array is the new element placed?
+            ● At the beginning of the array
+            ● In the middle of the array
+            ● At the end of the array
+            ● None of the above
+            Ans. c
+             *********************************************** */
+            /************************************************
+            The pop method for arrays ____________.
+            ● Adds another element to the array
+            ● Removes the first element of an array
+            ● Removes the last element of an array
+            ● Removes the middle element of an array
+
+            Ans. c
+             *********************************************** */
+            
+//          Variable Hoisting
+            var amazingCars = ["BMW","Lexus","Ford","mercedes"];
+            amazingCars.pop();
+            amazingCars.sort();
+            amazingCars.length;
+            
+            //Multi-dimensional Array
+            var courses = [
+                            ["MCA",60],
+                            ["BCA",40],
+                            ["BTECH",50]
+            ];
+            console.log(courses[1][1]);
+            
+            var activities = [
+                            ['Work', 9],
+                            ['Eat', 2],
+                            ['Commute', 2],
+                            ['Play Game', 2],
+                            ['Sleep', 7]
+                           ];
+            //Find percentage
+            for(var i =0;i<activities.length;i++)
+            {
+                console.log(activities[i][0]);
+                per =  ((activities[i][1]/24)*100).toFixed();
+                console.log("Percentage"+per+"%");
+                activities[i][2] = per+"%";
+               console.log(activities[i][2]);
+            }
+            
+            //Direct pop
+            activities.pop();
+            
+            //Print mulit-dimensional array as string
+            console.log(activities.join('\n'));
+
+            //Pop element from multi-dimensional - not working
+            for (var i = 0; i < activities.length; i++) 
+            {
+                activities.pop(2);
+            }
+            console.log(activities.join('\n'));
+            
+            //Not clear 
+            Filter()
+            map()
+            reduce()
+            every() //example is not working
+            some() //example is not working
+            
+            
+            //splice
+                var a = ["I",'love',"canada"];
+                a.splice("2","1","India");
+
+                a.splice("3","0","I","born","here");
+                console.log(a);
+                
+            //slice
+                 var arr = ["I",'love',"canada","It","is","beautiful"];
+                  arr.slice(0,2);
+        </script>
+    </body>
+</html>
