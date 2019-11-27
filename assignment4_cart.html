@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Assignment4-cart</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h2 style="color: blue">PRODUCT LIST</h2>
+        <table id="productlist" border="1" cellspacing="0" cellpadding="10">
+        </table>
+        
+        <h2 style="color: blue">YOUR CART</h2>
+        <table id="cartlist" border="1" cellspacing="0" cellpadding="10">
+        </table>
+        
+        <script>
+            /*
+            make shopping cart which can add item, remove it and make payment.
+            make sure there should be use of iife, closures , mikeects to run it.
+            */
+           
+           //Creating Customer Object
+           var Customer = {
+                "list" :[],
+                traverse: function () {
+                    var totalAmount = 0;
+//                    console.log("Total Amount :"+ this.list);
+                    var x = 0;
+                    var cartList ="";
+                    cartList += "<tr><td>Sno. </td><td>Product </td><td>Color </td><td>Price</td><td>Quantity </td><td>Action</td></tr>";          
+                    var isEmpty = true;
+                    this.list.forEach(function(item,index){
+                        if(item >0)
+                        {
+                            isEmpty = false;
+                            x++;
+                            cartList += "<tr><td>"+x +"</td><td>"+products[index]["type"]+"</td><td>"+item+"</td><td>"+ products[index]["price"] +"</td><td>"+ item*products[index]["price"]+"</td><td><button class='btn btn-info' onclick='remove("+index+")'>-</button></td></tr>";          
+                            totalAmount +=  item*products[index]["price"];
+                        }
+                   });
+                   cartList += "<tr><td colspan='4'>Total</td><td colspan='2'>"+totalAmount+"</td></tr>";
+                   var  cartListHtml = (isEmpty)?"<tr><td><font style='color:red'>Your cart is empty!!!Go GRAB SOME PRODUCTS</font></td></tr>":cartList;
+                   document.getElementById("cartlist").innerHTML = cartListHtml;
+                },
+            };
+            
+            var mike = Object.create(Customer);
+            mike.traverse(); //Created a cart for mike for now
+            function add(productno)
+            {
+                updateCart("add",productno,mike);
+                updateProducts("add",productno);
+            }        
+            function remove(productno)
+            {
+                updateCart("delete",productno,mike);
+                updateProducts("delete",productno);
+            }        
+            
+            function updateCart(action,productno,mike)
+            {
+                switch(action)
+                {
+                    case "add":
+                        if(mike.list[productno] === undefined)
+                        {
+                            mike.list[productno] = 1;
+                        }
+                        else{
+                             mike.list[productno] += 1;
+                        }
+                        break;
+                    case "delete":
+                        mike.list[productno] -= 1;
+                        break;
+                }
+                console.log("Your Cart is now :"+mike.list);
+                mike.traverse();
+            }
+            
+            //Define Product List
+            var products =[
+                       {"type":"Shoes","color" :"Blue", "price": "200","quantity":"10"},
+                       {"type" : "Shirt","color" : "Gray", "price" : "100","quantity":"10"},
+                       {"type" : "GiftBox","color" : "Red", "price" : "50","quantity":"10"}
+                    ];
+                        
+            //IIFE concept
+            (function(){
+                updateProducts("");  
+            })();
+            
+            //Update Products
+            function updateProducts(action,productno)
+            {
+                switch(action)
+                {
+                    case "add":
+                        products.forEach(function(item,index){
+                            if(index == productno){
+                                item["quantity"] -= 1;
+                            }
+                                console.log(item["quantity"]);
+                        })
+                        break;
+                    case "delete":
+                        products.forEach(function(item,index){
+                        if(index == productno){
+                                item["quantity"] += 1;
+                            }
+                                console.log(item["quantity"]);
+                        })
+                        break;
+                }
+                
+                //Closure concept
+                //VIEW PRODUCTS
+                function printList()
+                {
+                    var productList = "";
+                    var count = 0;
+                    productList += "<tr><td>Sno. </td><td>Product </td><td>Color </td><td>Price</td><td>Quantity </td><td>Action</td></tr>";          
+                    products.forEach(function(item,index){
+                        if(item["quantity"] >0)
+                        {
+                            count++;
+                           productList += "<tr><td class='index'>"+count+"</td><td>"+item["type"]+"</td><td>"+item["color"]+"</td><td>"+item["price"]+"</td><td>"+item["quantity"]+"</td><td><button class='btn btn-info'  onclick='add("+index+")'>+</button></td></tr>";          
+                        }
+                    })
+                    document.getElementById("productlist").innerHTML = productList;
+                }
+                printList();
+            }
+            
+        </script>
+    </body>
+</html>
