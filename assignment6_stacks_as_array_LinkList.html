@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Assignment1</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <script>
+            
+            //STACKS
+            
+            //Implementation #1 (Array)
+             class stack{
+                constructor(){
+                    console.log("Called class");
+                    this.stack = [];
+                }
+                push(element)
+                {
+                    this.stack.push(element);
+                }
+                pop(element)
+                {
+                    if(!this.stack.length)
+                    {
+                        console.log("Stack is empty");
+                        return true;
+                    }
+                    //Remvoe an element
+                    console.log(this.stack[this.stack.length-1]+" delete successfully");
+                    this.stack.pop();
+                }
+                traverse()
+                {
+                    if(!this.stack.length)
+                    {
+                        console.log("Stack is empty");
+                        return true;
+                    }
+                    
+                    console.log(this.stack);
+                }
+                peek()
+                {
+                    if(!this.stack.length)
+                    {
+                        console.log("Stack is empty");
+                        return true;
+                    }
+                    
+                    console.log("Pointer is at "+this.stack.length + " position");
+                }
+            }
+            var s1 = new stack();
+            s1.push(23);
+            s1.push(33);
+            s1.push(34);
+            s1.traverse();
+            s1.pop();
+            s1.traverse();
+            s1.peek();
+            
+            //Implementation #1 (LinkedList)
+            class Node
+            {
+                constructor(next,value)
+                {
+                    this.next = next;
+                    this.value = value;
+                }
+            }
+            
+            class LinkList
+            {
+                constructor()
+                {
+                    this.stack = null;
+                }
+                push(element)
+                {
+                    let head = this.stack;
+                    let newNode = new Node(null,element);
+                    if(head)
+                    {
+                        //insert new node
+                        newNode.next = head;
+                        this.stack = newNode;
+                    }else{
+                        //insert first node
+                        
+                        this.stack = newNode;
+                    }
+                    console.log(this.stack);
+                    return newNode;
+                }
+                pop()
+                {
+                    let head = this.stack;
+                    
+                    if(!head)
+                    {
+                        console.log("Stack is empty!");
+                    }else{
+                        //insert first node
+                        this.stack = head.next;
+                    }
+                    console.log(this.stack);
+                    return true;
+                }
+                peak()
+                {
+                    let head = this.stack;
+                    
+                    if(!head)
+                    {
+                        console.log("Stack is empty!");
+                    }
+                    console.log(this.stack.value);
+                    return true;
+                }
+            }
+            var l1 = new LinkList();
+            l1.push(20);
+            l1.push(30);
+            l1.push(30);
+            l1.pop();
+            l1.peak();
+        </script>
+    </body>
+</html>
