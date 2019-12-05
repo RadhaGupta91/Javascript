@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Assignment6</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <script>
+            
+            //QUEUE
+            /*
+             *Strategy : FIFO 
+             **/
+            
+            /****Implementation #1 (Array)****/
+             class Queue{
+                constructor(){
+                    console.log("Array: Queue initialized");
+                    this.queue = [];
+                }
+                queueitem(element)
+                {
+                    this.queue.push(element);
+                }
+                dequeue()
+                {
+                    if(!this.queue.length)
+                    {
+                        console.log("Array: Stack is empty");
+                        return true;
+                    }
+                    //Remvoe an element
+                    console.log(this.queue[0]+" delete successfully");
+                    this.queue.shift();
+                }
+                traverse()
+                {
+                    if(!this.queue.length)
+                    {
+                        console.log("Array:Queue is empty");
+                        return true;
+                    }
+                    
+                    console.log(this.queue);
+                }
+                peek()
+                {
+                    if(!this.queue.length)
+                    {
+                        console.log("Array:Queue is empty");
+                        return true;
+                    }
+                    
+                    console.log("Array:Pointer is pointing to "+this.queue[0] + " element");
+                }
+            }
+            
+            var s1 = new Queue();
+            s1.traverse();
+            s1.queueitem(23);
+            s1.traverse();
+            s1.queueitem(33);
+            s1.traverse();
+            s1.queueitem(34);
+            s1.traverse();
+            s1.dequeue();
+            s1.traverse();
+            s1.peek();
+            
+            /****Implementation #1 (LinkedList)****/
+            class Node
+            {
+                constructor(next,value)
+                {
+                    console.log("LinkList: Queue initialized");
+                    this.next = next;
+                    this.value = value;
+                }
+            }
+            
+            class LinkList
+            {
+                constructor(){
+                    this.queue = null;
+                    this.head = null;
+                }
+                
+                queueitem(element)
+                {
+                    let newNode = new Node(null,element);
+                    let head = this.queue;
+                    if(!head)
+                    {
+                        console.log("LinkList:Insert First element");
+                        this.queue = newNode;
+                    }else{
+                        let queuelist = head;
+                        while(queuelist.next)
+                        {
+                            queuelist = queuelist.next;
+                        }
+                        queuelist.next = newNode;
+                        return true;
+                    }
+                }
+                traverse()
+                {
+                    let queuelist = this.queue;
+                    if(!queuelist)
+                    {
+                        console.log("LinkList:Queue is empty");
+                        return true;
+                    }
+                    
+                   console.log(queuelist);
+                }
+                peek()
+                {
+                    let queuelist = this.queue;
+                    if(!queuelist)
+                    {
+                        console.log("LinkList:Queue is empty");
+                        return true;
+                    }
+                    
+                    console.log(queuelist.value);
+                }
+                
+            }
+            var s1 = new LinkList();
+            s1.traverse();
+            s1.queueitem(23);
+            s1.traverse();
+            s1.queueitem(33)  ;
+//            s1.traverse();
+            s1.queueitem(34);
+//            s1.traverse();
+            s1.peek();
+        </script>
+    </body>
+</html>

@@ -14,8 +14,11 @@ and open the template in the editor.
         <script>
             
             //STACKS
+            /*
+             *Strategy : LIFO 
+             **/
             
-            //Implementation #1 (Array)
+            /****Implementation #1 (Array)****/
              class stack{
                 constructor(){
                     console.log("Called class");
@@ -66,7 +69,7 @@ and open the template in the editor.
             s1.traverse();
             s1.peek();
             
-            //Implementation #1 (LinkedList)
+            /****Implementation #2 (LinkedList)****/
             class Node
             {
                 constructor(next,value)
@@ -93,7 +96,6 @@ and open the template in the editor.
                         this.stack = newNode;
                     }else{
                         //insert first node
-                        
                         this.stack = newNode;
                     }
                     console.log(this.stack);
