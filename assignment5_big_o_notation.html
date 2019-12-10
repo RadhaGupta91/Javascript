@@ -46,7 +46,7 @@ console.log(i);
 }
 }
 /**Output : Time/space complexity**/
-//Time: Best : O(n) - not clear
+//Time: Best : O(n)
 //space: O(n)
 /***********************************************/
 /**4 Question**/
@@ -78,7 +78,7 @@ function subtotals(array) {
     return subtotalArray;
 }
 /**Output : Time/space complexity**/
-//Time: O(n*n)
+//Time: O(n^n)
 //space:O(n+1)
 /***********************************************/
 
@@ -92,7 +92,7 @@ function isEven(value){
  return false;
 }
 /**Output : Time/space complexity**/
-//Time:  O(1)  - correct
+//Time:  O(1)
 //space: O(1)
 
 /***********************************************/
@@ -101,7 +101,7 @@ function isEven(value){
 // 2. Are You Here?
 function areYouHere(arr1, arr2) 
 {
-    for (let i=0; i< arr1.length; i++)
+    for (let i=0; i<arr1.length; i++)
     {
         const el1 = arr1[i];
         //ticks1++;
@@ -115,7 +115,7 @@ function areYouHere(arr1, arr2)
     return false;
 }
 /**Output : Time/space complexity**/
-//Time:  Best case O(1) worst case O(n*n)
+//Time:  O(n2)
 //space: O(1)
 /***********************************************/
 // 3. Doubler
@@ -138,7 +138,7 @@ function naiveSearch(array, item) {
     }
  }
 /**Output : Time/space complexity**/
-//Time:  Best case O(1) worst case O(n)
+//Time:  O(n)
 //space: O(1)
 /***********************************************/
 // 5. Creating Pairs
@@ -153,7 +153,7 @@ function naiveSearch(array, item) {
      //console.log(ticks);
     }
 /**Output : Time/space complexity**/
-//Time:  O(n^(array.len-i))
+//Time:  O(n^(arra.len-n))
 //space: O(n)
 /***********************************************/
 // 6. Computing Fibonacci Numbers
@@ -227,5 +227,5 @@ function isPrime(n)
     return true;
 }
 /**Output : Time/space complexity**/
-//Time:  O(n)
+//Time:  
 //space: O(1)

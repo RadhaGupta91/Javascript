@@ -217,64 +217,28 @@ and open the template in the editor.
             var bmiComparison = ((mike.bmi > john.bmi) ? true : false);
             console.log("Is Mark's BMI higher than Jhon's? " + bmiComparison);
             
-            /*
-            make shopping cart which can add item, remove it and make payment.
-            make sure there should be use of iife, closures , objects to run it.
-            */
-           
-            var products =[
-                           {"type":"Shoes","color" :"Blue", "price": "2000"},
-                           {"type" : "Shirt","color" : "Gray", "price" : "2500"},
-                           {"type" : "GiftBox","color" : "Red", "price" : "1500"}
-                        ];
-            products.forEach((item,index) => console.log((index+1)+" Product :"+item["type"]+" Color :"+item["type"]+" Price :"+item["price"]));
             
-            var Customer = {
-                "list" :[
-                            [1, 9]
-                        ],
-                //calculate totalAmount
-                totalAmount: function () {
-                    var totalAmount = 0;
-                     this.list.forEach(function(item,index){
-//                                                    quantity* price
-                                 totalAmount += products[index][1]*products[index]["price"];
-                                 console.log("Total Amount :"+totalAmount);
-                            });
-                            return totalAmount;
-                },
-                traverse: function () {
-                    
-                    this.list.forEach(function(item,index){
-                                
-                                console.log((index+1)+" Product :"+products[index]["type"]+" Quantity :"+item[1]);
-                                
-                            });
-                            console.log("Total Amount :"+ this.totalAmount());
             
-                },
-                modify: function(action,productno,quantity)
-                {
-                    console.log(this.list);
-                    switch(action)
-                    {
-                        case "add":
-                            this.list[productno][1]++;
-                            break;
-                        case "delete":
-                            this.list[productno][1]--;
-                            break;
-
-                    }
-                    console.log("Your Cart is :");
-                    this.traverse();
+            //Concept of inner Fucntion
+            var john  = {
+                        'name': 'John',
+                        'yob': '1990',
+                        'calAge': function(){
+                            console.log(this);
+                            console.log(2019 - this.yob);
+                            function innerfunc(){
+                                console.log(this);
+                            }
+                            innerfunc();
+                        }
                 }
-            };
-            
-            var mike = Object.create(Customer);
-            //
-            mike.modify("add",0,1);
-//            mike.traverse();
+
+                var mike  = {
+                        'name': 'John',
+                        'yob': '1990'
+                }
+                mike.calAge = john.calAge;
+                mike.calAge();
         </script>
     </body>
 </html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Assignment4-cart</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <table id="productlist" border="1" cellspacing="0" cellpadding="10">
+        </table>
+        
+        <table id="cart" border="1" cellspacing="0" cellpadding="10">
+        </table>
+        
+        <script>
+           
+            /*
+            make shopping cart which can add item, remove it and make payment.
+            make sure there should be use of iife, closures , objects to run it.
+            */
+           
+            var products =[
+                           {"type":"Shoes","color" :"Blue", "price": "200","quantity":"10"},
+                           {"type" : "Shirt","color" : "Gray", "price" : "100","quantity":"10"},
+                           {"type" : "GiftBox","color" : "Red", "price" : "50","quantity":"10"}
+                        ];
+                        
+            //IIFE concept
+            (function(){
+                var productList = "";
+                productList += "<tr><td>Sno. </td><td>Product </td><td>Color </td><td>Price</td><td>Quantity </td><td>Action</td></tr>";          
+                products.forEach(function(item,index){
+                    productList += "<tr><td>"+(index+1)+"</td><td>"+item["type"]+"</td><td>"+item["color"]+"</td><td>"+item["price"]+"</td><td>"+item["quantity"]+"</td><td><a href='#' class='addItem'>Add</a></td></tr>";          
+                })
+                document.getElementById("productlist").innerHTML = productList;
+            })();
+            
+            var Customer = {
+                "list" :[],
+                traverse: function () {
+                    var totalAmount = 0;
+                    $x = 0;
+                    cartList += "<tr><td>Sno. </td><td>Product </td><td>Color </td><td>Price</td><td>Quantity </td><td>Action</td></tr>";          
+                    console.log("Sno | Product | Quantity | Unit Price | Price");
+                    this.list.forEach(function(item,index){
+                        $x++;
+                        cartList += "<tr><td>Sno. </td><td>Product </td><td>Color </td><td>Price</td><td>Quantity </td><td>Action</td></tr>";          
+                        cartList += "<tr><td>Sno. </td><td>Product </td><td>Color </td><td>Price</td><td>Quantity </td><td>Action</td></tr>";          
+                       console.log($x +" | "+products[index]["type"]+"     |        "+item+" | "+ products[index]["price"] +"        |   "+ item*products[index]["price"]);
+                       totalAmount +=  item*products[index]["price"];
+                   });
+                    console.log("---------------------------------------------");
+                    console.log("                           Total Amount :"+ totalAmount);
+            
+                },
+               
+            };
+            function update(action,productno,quantity,obj)
+            {
+                productno = productno-1;
+                switch(action)
+                {
+                    case "add":
+                        obj[productno] = quantity;
+                        if(obj.list[productno] === undefined)
+                        {
+                            obj.list[productno] = quantity;
+                        }
+                        else{
+                             obj.list[productno] += quantity;
+                        }
+                        break;
+                    case "delete":
+                        obj.list[productno] -= quantity;
+                        break;
+                }
+                console.log("Your Cart is :");
+                obj.traverse();
+            }
+            
+//            var person = prompt("Please enter the product No. you want to buy", "Harry Potter");
+            var mike = Object.create(Customer);
+            console.log("Going to buy 3 shirts");
+            update("add",2,3,mike);
+            console.log("Going to buy 1 pair of shoes");
+            update("add",1,1,mike);
+            console.log("Need to remove 1 shirt");
+            update("delete",2,1,mike);
+
+        
+        </script>
+    </body>
+</html>

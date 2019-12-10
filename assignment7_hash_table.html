@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Assignment1</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <script>
+
+            //HASH TABLES
+            var makeHashTable = function (max) {
+                var storage = [],
+                        hashStorageMethods = {
+                            /**Hash Functions**/
+                    
+                           //Create a method that converts any key such into random number. 
+                            createHashIndex: function (key)
+                            {
+                                var hash = 0;
+                                //See max value we set above.
+                                for (var i = 0; i < key.length; i++)
+                                {
+                                    hash = (hash << 5) - hash + key.charCodeAt();
+                                    hash = hash >>> 0; //convert to 32bit unsigned integer
+                                }
+                                console.log(" hash Value: "+hash+" Return value: "+ Math.abs(hash % max))
+                                return Math.abs(hash % max)
+                            },
+                            
+                            /*The insert method will call the CreateHashIndex to
+                              encrypt our insertion key and insert its value at
+                              this specified index */
+                            insert: function (key, value)
+                            {
+                                if (key === undefined || value === undefined || key.length === 0 || value.length === 0)
+                                {
+                                    throw ('Insertion of undefined not possible')
+                                } else {
+                                    var hashIndex = this.createHashIndex(key);
+                                    storage[hashIndex] = value;
+                                }
+                                return this;
+                            },
+                            /*The retrieve function will call the CreateHashIndex again, this time to decrypt our key 
+                             * and to retrive the value from storage*/
+                            retrieve: function (key) {
+                                var hashIndex = this.createHashIndex(key);
+                                return key + ': ' + storage[hashIndex];
+                            },
+                        };
+                return hashStorageMethods;
+            }
+
+            //SAMPLE DICTIONARY OF VALUES TO INSERT INTO THE HASH
+            var myDictionary = {
+                ailurophile: 'a cat-lover',
+                assemblage: 'a gathering',
+                bucolic: 'in a lovely rural setting',
+                ebullience: 'bubbling enthusiasm',
+                evanescent: 'vanishing quickly, lasting a very short time',
+                evocative: 'suggestive',
+                gossamer: 'the finest piece of thread, a spider\'s silk',
+                harbinger: 'messenger with news of the future'
+            };
+
+            //create an instance of our createHashTable, and set the max to 10000
+            var hashTable = makeHashTable(1000);
+
+            //now insert our dictionary keys and values into our hash table
+            for (var key in myDictionary) {
+                hashTable.insert(key, myDictionary[key]);
+            }
+            //now look up definitions in our hash table;
+            for (var key in myDictionary) {
+                console.log(hashTable.retrieve(key));
+            }
+            
+            console.log(hashTable.insert('labyrinthine', 'twisting and turning').retrieve('labyrinthine'));
+            console.log(hashTable.retrieve('ailurophile')); 
+            console.log(hashTable.retrieve('gossamer')); 
+//            console.log(hashTable.insert('incipient')); 
+            console.log(hashTable.insert('', 'a naive young women'));
+        </script>
+    </body>
+</html>

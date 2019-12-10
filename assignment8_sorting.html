@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Assignment1</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <script>
+            function bubbleSort(a) 
+            {
+                var n = a.length;
+                // Iteration of array till last before element
+                for (let i = 0; i < (n - 2); i++) {
+                    // Iteration of array till last before element
+                    for (j = 0; j < (n - 2); j++) {
+                        if (a[j] > a[j + 1]) {
+                        //Swap the consecutive elements
+                        let temp = a[j];
+                                a[j] = a[j + 1];
+                                a[j + 1] = temp;
+                        }
+                    }
+                }
+                return a;
+            }
+            
+            //Sorting
+            var comparisonBasedSorting = function (max) {
+                sorting = {
+                /**Hash Functions**/
+
+                    //bubble out the number to sort an array 
+                    bubbleSort: function (items)
+                    {
+                        console.log("\n********Bubble Sort********");
+                        const n = items.length;
+                        for (var i = 0; i < n - 2; i++)
+                        {
+                            console.log("Next Iteration");
+                            for (let j = 0; j < n - 1; j++)
+                            {
+                                if (items[j] > items[j + 1])
+                                {
+                                    var temp = items[j];
+                                    items[j] = items[j + 1];
+                                    items[j + 1] = temp;
+                                }
+                                console.log(items);
+                            }
+                        }
+                        return items;
+                    },
+                    //Select a specific element, then compare,swap and sort an array
+                    selectionSort: function (items)
+                    {
+                        console.log("\n********Selection Sort********");
+                        const n = items.length;
+                        for (var i = 0; i < n - 1; i++)
+                        {
+                            console.log("Next Iteration");
+                            for (let j = i+1; j < n; j++)
+                            {
+                                if (items[i] > items[j])
+                                {
+                                    var temp = items[i];
+                                    items[i] = items[j];
+                                    items[j] = temp;
+                                }
+                                console.log(items);
+                            }
+                        }
+                        return items;
+                    },
+                    mergeSort : function (items)
+                    {
+                        console.log("\n********Merge Sort********");
+                        console.log(items);
+                        const n = items.length;
+                        if(n  === 1)
+                            return items;
+                        
+                        //split into half
+                        let splitHere = parseInt(n/2);
+                        leftArray = items.slice(0,splitHere);
+                        rightArray = items.slice(splitHere,n);
+                        console.log("Left Array"+leftArray.length);
+                        console.log(leftArray);
+                        console.log("Right Array"+rightArray.length);
+                        console.log(rightArray);
+                        x= 0;
+                        while(leftArray.length>1 && rightArray.length>1)
+                        {
+                            console.log(x);
+                            x++;
+                            return this.merge(this.mergeSort(leftArray),this.mergeSort(rightArray));
+                        }
+                    },
+                    //Merge Sort, use divide and merge rule to sort an array
+                    merge: function(left,right)
+                    {
+                        let result = [];
+                        while(left!= undefined && left.length && right.length)
+                        {
+                            if(left[0]<=right[0])
+                            {
+                                result.push(left.shift());
+                            }else
+                            {
+                                result.push(right.shift());
+                            }
+                        }
+                        
+                        //remove all leftout elements from left array and move to the result array
+                        while(left!= undefined && left.length)
+                        {
+                            result.push(left.shift());
+                        }
+                        //remove all leftout elements from right array and move to the result array
+                        while(right!= undefined && right.length)
+                        {
+                            result.push(right.shift());
+                        }
+                        console.log(result);
+                        return result;
+                        
+                    },
+                        
+                   
+                    
+                };
+                return sorting;
+            }
+
+//           comparisonBasedSorting
+            var sortArray = comparisonBasedSorting();
+            const input = [10, 7, 33, 2, 3];
+            //Bubble sort
+            sortArray.bubbleSort(input);
+            //Selection sort
+            sortArray.selectionSort(input);
+            //Merge sort
+//            const input1 = [10, 7, 33, 2, 3];
+//            sortArray.mergeSort(input1);
+            
+            
+            //merge Sort
+            function mergeSort(array)
+            {
+                console.log("\n********Merge Sort********");
+                if (array.length === 1)
+                {
+                    return array;
+                }
+                
+                // Split the array in half
+                let splitHere = parseInt(array.length / 2),
+                leftArray = array.slice(0, splitHere),
+                rightArray = array.slice(splitHere, array.length);
+                return merge(mergeSort(leftArray), mergeSort(rightArray));
+            }
+            
+            function merge(leftArray, rightArray)
+            {
+                // Create an array that will hold our result
+                let result = [];
+                // While both of the arrays have items:
+                while(leftArray.length && rightArray.length) {
+
+                    if (leftArray[0] <= rightArray[0]) {
+                    result.push(leftArray.shift());
+                    } else {
+                    result.push(rightArray.shift());
+                    }
+                }
+
+                while(leftArray.length) {
+                    result.push(leftArray.shift());
+                }
+
+                while(rightArray.length) {
+                    result.push(rightArray.shift());
+                }
+                console.log(result);
+                return result;
+            }
+            const items = [10, 7, 33, 2, 3];
+            mergeSort(items);
+        </script>
+    </body>
+</html>

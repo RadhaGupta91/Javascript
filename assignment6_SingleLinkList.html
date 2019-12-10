@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Assignment1</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <script>
+            function Node(value)
+            {
+                this.node = value;
+                this.next = null;
+            }
+
+            function SingleLinkList()
+            {
+                this._length = 0;
+                this.head = null;
+            }
+
+            SingleLinkList.prototype.add = function(value){
+                var node = new Node(value);
+                 var currentNode = this.head;
+                 //if list is empty
+                 if(!currentNode)
+                 {
+                     this.head = node;
+                     this._length++;
+                     return node;
+                 }
+                 //2nd if list is non-empty
+                 console.log(currentNode.next);
+                 while(currentNode.next)
+                 {
+                     currentNode = currentNode.next;
+                 }
+                 currentNode.next = node;
+                 this._length++;
+                 return node;
+
+            }
+            var item = new SingleLinkList();
+            item.add(12);
+            item.add(14);
+            console.log(item.head);
+           
+           
+           SingleLinkList.prototype.search = function(position){
+               var currentNode = this.head;
+               var count = 1;
+               var length =  this._length;
+               var msg  = {"failure":"Invalid search of node"};
+                
+                if(position >length || position<0 || length ===0)
+                {
+                    throw new Error(msg.failure);
+                }
+                
+                while(count<position)
+                {
+                    currentNode = currentNode.next;
+                    count++;
+                }
+                return currentNode;
+            }
+           
+           SingleLinkList.prototype.remove = function(position)
+           {
+                var currentNode = this.head;
+                var count = 1;
+                var length =  this._length;
+                var msg  = {"failure":"Invalid search of node"};
+                var beforeDeleteNode = null;
+                var nodeTOdelete = null;
+                var deletedNode = null;
+                if(position >length || position<0 || length ===0)
+                {
+                    throw new Error(msg.failure);
+                }
+                
+                while(count<position)
+                {
+                    beforeDeleteNode = currentNode;
+                    nodeTOdelete = currentNode.next;
+                    count++;
+                }
+                beforeDeleteNode.next = nodeTOdelete.next;
+                deletedNode = nodeTOdelete;
+               
+           }
+           
+           console.log("Searching for an item");
+           console.log(item.search(2));
+           console.log(item._length);
+           
+        </script>
+    </body>
+</html>
