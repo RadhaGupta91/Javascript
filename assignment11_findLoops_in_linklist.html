@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Assignment1</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <script>
+            
+            /************************************************
+            How to find loops in link list
+            */
+           
+            
+            function Node(value,next = null)
+            {
+                this.node = value;
+                this.next = next;
+            }
+
+            function SingleLinkList()
+            {
+                this._length = 0;
+                this.head = null;
+                this.cycle = null;
+            }
+
+            SingleLinkList.prototype.add = function(value,isCycle = false){
+                
+                if(isCycle)
+                    var node = new Node(value,this.cycle);
+                else
+                    var node = new Node(value);
+                    
+                
+                var currentNode = this.head;
+                 //if list is empty
+                 if(!currentNode)
+                 {
+                     this.head = node;
+                     this._length++;
+                     return node;
+                 }
+                 //2nd if list is non-empty
+                while(currentNode.next)
+                {
+//                    if(value == 4)
+//                        this.cycle = currentNode;
+                    currentNode = currentNode.next;
+                }
+                currentNode.next = node;
+                
+                if(value == 2)
+                    this.cycle = currentNode.next;
+                    
+                 
+                 this._length++;
+                 return node;
+
+            }
+            
+            SingleLinkList.prototype.findLoop = function(){
+                
+                    var p1, p2, isLoopexists;
+                    p1 = this.head;
+                    p2 = this.head;
+                    var c = 0;
+                    // loop detection, basic condition for loop to exist
+                    while ( p2.next != null && p2.next.next) {
+                      p1 = p1.next;
+                      p2 = p2.next.next;
+                      c++;
+                      console.log(c);
+                      if (p2 === p1) {
+                        isLoopexists = true;
+                        break;
+                      }
+
+                    }
+                    return isLoopexists;
+            }
+            var item = new SingleLinkList();
+            item.add(1);
+            item.add(2);
+            item.add(3);
+            item.add(4);
+            item.add(5);
+            item.add(6,true);
+            
+            let isLoopexists = item.findLoop();
+            if(isLoopexists)
+                console.log("Yes loop exists");
+            else
+                console.log("No loop found");
+            </script>
+    </body>
+</html>

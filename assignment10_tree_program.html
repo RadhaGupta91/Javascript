@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Assignment1</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <script>
+            class Node{
+                constructor(data,left = null,right = null)
+                {
+                    this.left = left;
+                    this.node = data;
+                    this.right = right;
+                }
+            }
+            
+            class BST{
+                constructor()
+                {
+                    this.root = null;
+                }
+                
+                //Add node into BST
+                add(data){
+                    //create new node
+                    const node = new Node(data);
+                    
+                    if(this.root == null)
+                    {
+                        this.root = node;
+                    }else{
+                        const searchNode = function(current){
+                            if(data < current.node)
+                            {
+                                if(current.left == null)
+                                {
+                                    const node = new Node(data);
+                                    current.left = node;
+                                }else{
+                                    return searchNode(current.left);
+                                }
+                            }
+                            else if(data > current.node)
+                            {
+                                if(current.right == null)
+                                {
+                                    const node = new Node(data);
+                                    current.right = node;
+                                }else{
+                                    return searchNode(current.right);
+                                }
+                            }else{
+                                return null;
+                            }
+                        };
+                        return searchNode(this.root);
+                    }
+                    console.log(this.root);
+                }
+                
+                //search node
+                search(data)
+                {
+                    const searchNode = function(current){
+                        if(current == null)
+                        {
+                            return false;
+                        }
+                        if(data< current.node){
+                            return searchNode(current.left);
+                        }
+                        if(data > current.node)
+                        {
+                            return searchNode(current.right);
+                        }
+                        return true;
+                    }
+                    
+                    return searchNode(this.root);
+                }
+                
+                //delete node
+                delete(data)
+                {
+                    const removeNode = function(current,data){
+//                        debugger;
+                        if(current == null)
+                        {
+                            return null;
+                        }
+                        else if(data< current.node){
+                            current.left = removeNode(current.left,data);
+                        }else if(data > current.node)
+                        {
+                            current.right = removeNode(current.right,data);
+                        }else{
+                            if(current.left == null && current.right == null) return null;
+                            if(current.left == null) removeNode(current.right,data);
+                            if(current.right == null) removeNode(current.left,data);
+                        
+                            let replacement = current.left;
+                            let replacementParent = current;
+                            while(replacementParent.right !== null)
+                            {
+                                replacementParent = replacement;
+                                replacement = replacement.right;
+                            }
+                            current.node = replacementParent.node;
+                            current.left = removeNode(current.left,replacementParent.node);
+                            
+                        }
+                        
+                        return current;
+                    };
+                    this.root = removeNode(this.root, data);
+                    
+                }
+            }
+            
+            var tree = new BST();
+            tree.add(5);
+            tree.add(10);
+            tree.add(25);
+            tree.add(15);
+            tree.add(16);
+            tree.add(12);
+            tree.add(11);
+            tree.add(20);
+            tree.add(21);
+            tree.add(22);
+            tree.add(23);
+            tree.add(30);
+            tree.add(27);
+            tree.add(40);
+        
+        </script>
+    </body>
+</html>

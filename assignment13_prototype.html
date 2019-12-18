@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Prototype</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <script>
+
+            /************************************************
+             Create a Animal Object ( using Function Constructor) .
+             Inherit two types of cat from animal (Big cat and small Cat).
+             Implement Walk , talk and type methods. 
+             Type will be common to all objects and give the same output. 
+             Walk and talk mentors should be specific to the two inherited objects Big Cat and Small Cat . 
+             */
+
+            function Animal(type) {
+                this.cattype = type;
+            }
+            Animal.prototype.type = function () {
+                console.log("This is " + this.cattype + " cat");
+            }
+
+            bigCat = new Animal("big");
+            smallCat = new Animal("small");
+
+
+            bigCat.walk = function () {
+                console.log("Walking cat");
+            }
+            smallCat.talk = function () {
+                console.log("Talking cat");
+            }
+
+            bigCat.type();
+            bigCat.walk();
+            // bigCat.talk(); // bigCat.talk is not a function at <anonymous>....
+            smallCat.type();
+            //smallCat.walk(); //Uncaught TypeError: smallCat.walk is not a function at <anonymous>....
+            smallCat.talk();
+
+            /*****************************************
+             Create inheritance using "create object"* 
+             *****************************************/
+            var animal = {
+                // initialize the pastry
+                Animal: function (type) {
+                    this.cattype = type;
+                },
+                type: function () {
+                    console.log("This is " + this.cattype + " cat");
+                }
+            };
+
+            //bigCat
+            bigCat = Object.create(animal);
+            bigCat.Animal("Big");
+            bigCat.type();
+
+            //smallCat
+            smallCat = Object.create(animal);
+            smallCat.Animal("Small");
+            smallCat.type();
+
+            //Add more function into object
+            bigCat.walk = function () {
+                console.log("This is a big cat");
+            };
+            bigCat.talk();
+            
+            smallCat.talk = function () {
+                console.log("Talking cat");
+            }
+            smallCat.talk();
+            
+            /*****************************************
+             Difference between new operator and create object
+             *****************************************/
+            /**
+            The object used in Object.create actually forms the prototype of the new object.
+            In other words,
+            Object.create builds an object that inherits directly from the one passed as its first argument.
+            
+            With constructor functions, the newly created object inherits from the constructor's prototype,
+            
+            Very simply said, 
+            new X is Object.create(X.prototype) with additionally running the constructor function. (And giving the constructor the chance to return the actual object that should be the result of the expression instead of this
+            **/
+           
+            function Dog(){
+                this.pupper = 'Pupper';
+            };
+
+            Dog.prototype.pupperino = 'Pups.';
+            var maddie = new Dog();
+            var buddy = Object.create(Dog.prototype);
+
+            //Using Object.create()
+            console.log(buddy.pupper); //Output is undefined
+            console.log(buddy.pupperino); //Output is Pups.
+
+            //Using New Keyword
+            console.log(maddie.pupper); //Output is Pupper
+            console.log(maddie.pupperino); //Output is Pups.
+            
+            //Notice the output of buddy.pupper is undefined. Even though Object.create() sets its prototype to Dog, buddy does not have access to this.pupper in the constructor. This is due to the important difference that new Dog actually runs constructor code, whereas Object.create will not execute the constructor code.
+        </script>
+    </body>
+</html>

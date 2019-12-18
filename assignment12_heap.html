@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Assignment1</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <script>
+            
+            /************************************************
+            Implement Heap
+            */
+            class Node{
+                constructor(data,left = null,right = null)
+                {
+                    this.left = left;
+                    this.node = data;
+                    this.right = right;
+                }
+            }
+            
+            class Heap{
+                constructor()
+                {
+                    this.root = null;
+                }
+                
+                //Add node into BST
+                add(data){
+                    //create new node
+                    const node = new Node(data);
+                    
+                    if(this.root == null)
+                    {
+                        this.root = node;
+                    }else{
+                        const searchNode = function(current){
+                            if(data < current.node)
+                            {
+                                if(current.left == null)
+                                {
+                                    const node = new Node(data);
+                                    current.left = node;
+                                }else if(current.right == null)
+                                {
+                                    const node = new Node(data);
+                                    current.right = node;
+                                }else{
+                                    return searchNode(current.left);
+                                }
+                            }else{
+                                var temp = current.node;
+                                current.node = data;
+                                const node = new Node(temp);
+                                return searchNode(current.left);
+                            }
+                        };
+                        return searchNode(this.root);
+                    }
+                    console.log(this.root);
+                }
+                
+            }
+            
+            var tree = new Heap();
+            tree.add(6);
+            tree.add(5);
+            tree.add(3);
+            tree.add(1);
+            tree.add(8);
+            tree.add(7);
+            tree.add(2);
+            tree.add(4);
+       
+            </script>
+    </body>
+</html>

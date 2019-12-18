@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Assignment1</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <script>
+            
+            /************************************************
+            Given two binary tree1s and imagine that when you put one of
+            them to cover the other, some nodes of the two tree1s are
+            overlapped while the others are not.
+            You need to merge them into a new binary tree1. The merge rule is
+            that if two nodes overlap, then sum node values up as the new
+            value of the merged node. Otherwise, the NOT null node will be
+            used as the node of new tree1.
+            */
+           t1 = [1,2,3,4,5,6];
+           t2 = [10,20,30,40,50,60];
+           class Node{
+                constructor(data,left = null,right = null)
+                {
+                    this.left = left;
+                    this.node = data;
+                    this.right = right;
+                }
+            }
+            
+            class BST{
+                constructor()
+                {
+                    this.root = null;
+                }
+                
+                //Add node into BST
+                add(data){
+                    //create new node
+                    const node = new Node(data);
+                    
+                    if(this.root == null)
+                    {
+                        this.root = node;
+                    }else{
+                        const searchNode = function(current){
+                            if(data < current.node)
+                            {
+                                if(current.left == null)
+                                {
+                                    const node = new Node(data);
+                                    current.left = node;
+                                }else{
+                                    return searchNode(current.left);
+                                }
+                            }
+                            else if(data > current.node)
+                            {
+                                if(current.right == null)
+                                {
+                                    const node = new Node(data);
+                                    current.right = node;
+                                }else{
+                                    return searchNode(current.right);
+                                }
+                            }else{
+                                return null;
+                            }
+                        };
+                        return searchNode(this.root);
+                    }
+//                    console.log(this.root);
+                }
+                
+                //delete node
+                search(data)
+                {
+                    const searchNode = function(current){
+                        if(current == null)
+                        {
+                            return false;
+                        }
+                        if(data< current.node){
+                            return searchNode(current.left);
+                        }
+                        if(data > current.node)
+                        {
+                            return searchNode(current.right);
+                        }
+                        return true;
+                    }
+                    
+                    return searchNode(this.root);
+                }
+                
+                //delete node
+                delete(data)
+                {
+                    const removeNode = function(current,data){
+//                        debugger;
+                        if(current == null)
+                        {
+                            return null;
+                        }
+                        else if(data< current.node){
+                            current.left = removeNode(current.left,data);
+                        }else if(data > current.node)
+                        {
+                            current.right = removeNode(current.right,data);
+                        }else{
+                            if(current.left == null && current.right == null) return null;
+                            if(current.left == null) removeNode(current.right,data);
+                            if(current.right == null) removeNode(current.left,data);
+                        
+                            let replacement = current.left;
+                            let replacementParent = current;
+                            while(replacementParent.right !== null)
+                            {
+                                replacementParent = replacement;
+                                replacement = replacement.right;
+                            }
+                            current.node = replacementParent.node;
+                            current.left = removeNode(current.left,replacementParent.node);
+                            
+                        }
+                        
+                        return current;
+                    };
+                    this.root = removeNode(this.root, data);
+                    
+                }
+            }
+            
+            var tree1 = new BST();
+            tree1.add(5);
+            tree1.add(10);
+            tree1.add(25);
+            tree1.add(15);
+            tree1.add(16);
+            tree1.add(12);
+            tree1.add(11);
+            
+           /* Merge tree */
+           var mergeTree = (tree1,tree2)=>{
+             if(!tree1)  return null;
+             if(!tree2)  return null;
+             const root  = new Node(tree1.node + tree2.node);
+             root.left = mergeTree(tree1?tree1.left:null,tree2?tree2.left:null);
+             root.right = mergeTree(tree1?tree1.right:null,tree2?tree2.right:null);
+             
+             return root;
+           };
+
+            mergedTree = mergeTree(tree1.root,tree1.root);
+            console.log(mergedTree.root);
+            
+            /* Find Min value from tree*/
+            var minValue = (tree)=>{
+                if(!tree) return null;
+                let current = tree;
+                while(current.left)
+                {
+                    current = current.left;
+                }
+                console.log("Min value is: ");
+                console.log(current.node);
+            }
+            minValue(tree1.root);
+            
+            /* Find Max value from tree*/
+            var maxValue = (tree)=>{
+                if(!tree) return null;
+                let current = tree;
+                while(current.right)
+                {
+                    current = current.right;
+                }
+                console.log("Max value is: ");
+                console.log(current.node);
+            }
+            maxValue(tree1.root);
+            
+            /* Traversing */
+            /* Preorder Traverse */
+            /* Inorder Traverse */
+            /* Postorder Traverse */
+                        
+            /* Preorder Traverse Program */
+            var preOrder = (tree) =>{
+                if(tree == null) return null;
+                
+                const nodeList = [];
+                const traverse = function(tree){
+                    nodeList.push(tree.node);
+                    if(tree.left)traverse(tree.left);
+                    if(tree.right)traverse(tree.right);
+                }
+                traverse(tree);
+                
+                console.log("Pre Order");
+                console.log(nodeList);
+            }
+            preOrder(tree1.root);
+            
+            /* Inorder Traverse Program */
+            var inOrder = (tree) =>{
+                if(tree == null) return null;
+                
+                const nodeList = [];
+                const traverse = function(tree){
+                    if(tree.left)traverse(tree.left);
+                    nodeList.push(tree.node);
+                    if(tree.right)traverse(tree.right);
+                }
+                traverse(tree);
+                
+                console.log("Pre Order");
+                console.log(nodeList);
+            }
+            inOrder(tree1.root);
+            
+            /* Postorder Traverse Program */
+            var postOrder = (tree) =>{
+                if(tree == null) return null;
+                
+                const nodeList = [];
+                const traverse = function(tree){
+                    if(tree.left)traverse(tree.left);
+                    if(tree.right)traverse(tree.right);
+                    nodeList.push(tree.node);
+                }
+                traverse(tree);
+                
+                console.log("Post Order");
+                console.log(nodeList);
+            }
+            postOrder(tree1.root);
+            </script>
+    </body>
+</html>
