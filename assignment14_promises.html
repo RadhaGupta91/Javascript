@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Promises</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <script>
+
+            /************************************************
+            Promises
+            */
+            var isPossibleToPurchaseGift = true;
+            var willGetNewGift = new Promise(function(resolve,reject){
+                if(isPossibleToPurchaseGift)
+                { 
+                    var gift ={'ring':true,
+                                'flowers':true};
+                        resolve(gift);
+                }else{
+                    var error = new Error("left my wallet");
+                     reject(error);
+                }
+            });
+            
+            var goForLongDrive = function(willGoForDrive){
+                var willGoForDrive = true;
+                 if(willGoForDrive)
+                     return Promise.resolve("Yes! We will go to Downtown today Night"); 
+                 else
+                    return Promise.reject(new Error("No,Will plan some other day"));
+                }
+            
+            var goForDinner =  function(dineout){
+                return new Promise(function(resolve,reject){
+                    resolve("We will have dinner outside");
+                });
+            }
+            var getNewGift = function(){
+                willGetNewGift
+                .then(goForLongDrive)
+                .then(goForDinner)
+                .then(function(res){
+                    console.log(res);
+                })
+                .catch(function(error){
+                    console.log(error.message);
+                })
+            }
+//            getNewGift();
+            
+            /**2nd way**/
+             var isPossibleToPurchaseGift = true;
+           // var willGetNewGift = 
+            
+            var goForLongDrive = function(willGoForDrive){
+                var willGoForDrive = true;
+                 if(willGoForDrive)
+                     return Promise.resolve("Yes! We will go to Downtown today Night"); 
+                 else
+                    return Promise.reject(new Error("No,Will plan some other day"));
+                }
+            
+            var goForDinner =  function(dineout){
+                return new Promise(function(resolve,reject){
+                    resolve("We will have dinner outside");
+                });
+            }
+            
+            var getNewGift = function(){
+                new Promise(function(resolve,reject)
+                {
+                    if(isPossibleToPurchaseGift)
+                    { 
+                        var gift ={'ring':true,
+                                    'flowers':true};
+                            resolve(gift);
+                    }else{
+                        var error = new Error("left my wallet");
+                         reject(error);
+                    }
+                })
+                .then(goForLongDrive)
+                .then(goForDinner)
+                .then(function(res){
+                    console.log(res);
+                })
+                .catch(function(error){
+                    console.log(error.message);
+                })
+            }
+            getNewGift();
+            
+            /**Promise.all**/
+            var isPossibleToPurchaseGift = true;
+            var willGetNewGift = function(){
+                return new Promise(function(resolve,reject){
+                if(isPossibleToPurchaseGift)
+                { 
+                    var gift ={'ring':true,
+                                'flowers':true};
+                        resolve(gift);
+                }else{
+                    var error = new Error("left my wallet");
+                     reject(error);
+                }
+                 });
+            }
+            
+            var goForLongDrive = function(willGoForDrive){
+                var willGoForDrive = false;
+                 if(willGoForDrive)
+                     return Promise.resolve("Yes! We will go to Downtown today Night"); 
+                 else
+                    return Promise.reject(new Error("Error: No,Will plan some other day"));
+                }
+            
+            var goForDinner =  function(dineout){
+                return new Promise(function(resolve,reject){
+                    resolve("We will have dinner outside");
+                });
+            }
+            var getNewGift = function(){
+                Promise.all([
+                    willGetNewGift(),
+                    goForLongDrive(),
+                    goForDinner(),
+                ])
+                .then(function(res){
+                    console.log(res);
+                }).catch(function(error){
+                    console.log(error.message);
+                })
+            }
+//            getNewGift();
+
+            /**Promise.race**/
+            var isPossibleToPurchaseGift = true;
+            var willGetNewGift = function(){
+                return new Promise(function(resolve,reject){
+                    
+                    if(isPossibleToPurchaseGift)
+                    { 
+                        var gift ={'ring':true,
+                                    'flowers':true};
+                            resolve(gift);
+                    }else{
+                        var error = new Error("left my wallet");
+                         reject(error);
+                    }
+                });
+            }
+            
+            var goForLongDrive = function(willGoForDrive){
+                var willGoForDrive = true;
+                 if(willGoForDrive)
+                     return Promise.resolve("Yes! We will go to Downtown today Night"); 
+                 else
+                    return Promise.reject(new Error("Error: No,Will plan some other day"));
+                }
+            
+            var goForDinner =  function(dineout){
+                return new Promise(function(resolve,reject){
+                    resolve("We will have dinner outside");
+                });
+            }
+            var getNewGift = function(){
+                Promise.race([
+                    willGetNewGift(),
+                    goForLongDrive(),
+                    goForDinner(),
+                ])
+                .then(function(res){
+                    console.log(res);
+                }).catch(function(error){
+                    console.log(error.message);
+                })
+            }
+            getNewGift();
+        </script>
+    </body>
+</html>
